@@ -6,10 +6,10 @@ import background from '../../images/film.jpeg'
 export default function Signup() {
   return (
     <div className= { styles.container } >
-      <div className={styles.backgroundImage}></div>
-      <div className={styles.test}></div>
+      <div className={styles.image}></div>
       <div className= { styles.form } >
-        <h1>Sign up</h1>
+        <div className={styles.logo}></div>
+        <h1>Create Account</h1>
         <form>
           <div className={ styles.input1 } >
             <label htmlFor="email">Email</label>
@@ -39,6 +39,15 @@ export default function Signup() {
             <button type='submit' >Signup</button>
           </div>
         </form>
+        <div className={styles.oauth}>
+          <h3>OR</h3>
+          <div className={styles.btn1}>
+            <button type='submit' >Google</button>
+          </div>
+          <div className={styles.btn1}>
+            <button type='submit' >42</button>
+          </div>
+        </div>
       </div>
     </div>
   )

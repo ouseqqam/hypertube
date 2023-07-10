@@ -7,11 +7,13 @@
 @mixin flex_col {
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 @mixin input {
     border-radius: 20px;
-    height: 25px;
+    height: 30px;
+    width: px;
     padding-left: 10px;
-    border: 2px solid rgb(7, 171, 193);
+    border: 1px solid #1880CB;
 }
