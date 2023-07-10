@@ -20,23 +20,23 @@
     width: 50%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: 50px;
+    gap: 10px;
 }
 
 .logo {
     background-image: url('../../images/logo.png');
     background-size: contain;
-    // background-position: center;
-    width: 300px;
-    height: 300px;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 20%;
+    height: 20%;
 }
 
 .form form {
     width: 80%;
     display: grid;
-    gap: 60px;
+    gap: 40px;
 }
 
 
@@ -119,7 +119,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 30px;
 }
 
 .btn1 {

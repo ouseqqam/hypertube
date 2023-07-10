@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './signup.module.scss'
 import Image from 'next/image';
 import background from '../../images/film.jpeg'
 
 export default function Signup() {
+  const [form, setForm] = useState()
   return (
     <div className= { styles.container } >
       <div className={styles.image}></div>
