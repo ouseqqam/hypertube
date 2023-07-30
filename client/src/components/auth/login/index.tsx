@@ -47,11 +47,10 @@ export default function Login() {
   }
 
   return (
-    <div className= { styles.container } >
-      <div className={styles.image}></div>
+    <>
       <div className= { styles.form } >
         <div className={styles.logo}></div>
-        <h1>Create Account</h1>
+        <h1>Login</h1>
         <div>{error.message}</div>
         <form onSubmit={onSubmit}>
           <div className={ styles.input1 }>
@@ -86,6 +85,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

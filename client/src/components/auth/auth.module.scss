@@ -1,0 +1,19 @@
+@import '@/scss/include';
+
+.container {
+    height: 100vh;
+    display: flex;
+}
+
+.image {
+    width: 50%;
+    background-color: #000407;
+    background-image: url('../../images/spider.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.component {
+    width: 50%;
+}
