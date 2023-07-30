@@ -54,8 +54,7 @@ export default function Signup() {
   }
 
   return (
-    <div className= { styles.container } >
-      <div className={styles.image}></div>
+    <>
       <div className= { styles.form } >
         <div className={styles.logo}></div>
         <h1>Create Account</h1>
@@ -129,6 +128,6 @@ export default function Signup() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

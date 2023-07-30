@@ -5,7 +5,7 @@ import Login from './login'
 
 
 export default function Auth() {
-  const [login, setlogin] = useState<boolean>(true)
+  const [login, setlogin] = useState<boolean>(false)
   const [error, setError] = useState<{ message: string }>({
     message: ''
   })
