@@ -1,29 +1,16 @@
 @import '@/scss/include';
 
 .form {
-    width: 100%;
-    height: 100vh;
+    width: 100%;   
     display: flex;
     flex-direction: column;
     align-items: center;
+    form {
+        width: 80%;
+        display: grid;
+        gap: 20px;
+    }
 }
-
-.logo {
-    background-image: url('../../../images/logo.png');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 20%;
-    height: 20%;
-}
-
-.form form {
-    width: 80%;
-    display: grid;
-    gap: 20px;
-}
-
-
 
 .input1 {
     grid-column: 1/2;
@@ -120,7 +107,9 @@
     }
 }
 
-//rgb(21, 20, 19)
-//rgb(24, 24, 24)
-//rgb(0, 0, 0)
-//rgb(24, 24, 24)
+@media (max-width: 500px) {
+    .form form {
+        display: flex;
+        flex-direction: column;
+    }
+}

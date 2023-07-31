@@ -1,9 +1,11 @@
 @import '@/scss/include';
 
 .container {
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
     display: flex;
 }
+
 
 .image {
     width: 50%;
@@ -16,4 +18,29 @@
 
 .component {
     width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    img {
+        object-fit: contain;
+    }
+    
+}
+
+
+
+@media (max-width: 850px) {
+    .image {
+      display: none;
+    }
+    .component {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }

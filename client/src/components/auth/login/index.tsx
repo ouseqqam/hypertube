@@ -49,7 +49,6 @@ export default function Login() {
   return (
     <>
       <div className= { styles.form } >
-        <div className={styles.logo}></div>
         <h1>Login</h1>
         <div>{error.message}</div>
         <form onSubmit={onSubmit}>
