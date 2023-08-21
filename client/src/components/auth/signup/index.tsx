@@ -1,15 +1,11 @@
 import React, { useState } from 'react'
-import styles from './signup.module.scss'
-import axios from 'axios';
+import axios from 'axios'
 
-interface User {
-  email: string,
-  username: string,
-  firstName: string,
-  lastName: string,
-  password: string,
-  cPassword: string,
-}
+import styles from './signup.module.scss'
+
+import User from './register'
+import userSchema from '@/validations/userValidation'
+import * as yup from 'yup'
 
 
 export default function Signup() {
@@ -21,43 +17,41 @@ export default function Signup() {
     password: '',
     cPassword: ''
   })
-  const [error, setError] = useState<{ message: string }>({
-    message: ''
-  })
+
+  const [errors, setErrors] = useState({})
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value,
-    })
+    const { name, value } = e.target;
+    setUser(prevData => ({
+      ...prevData,
+      [name]: value
+    }))
   };
 
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(user)
     try {
+      const validation =  await userSchema.validate(user, { abortEarly: false })
+
       if (user.password != user.cPassword)
-        setError({
-          message : 'Password not equal'
+        setErrors({
+          cPassword : 'Password not equal'
         })
       else {
-        const res = await axios.post('http://localhost:3001/auth/register', user)
+        const res = await axios.post('http://localhost:3001/api/auth/register', user)
         console.log(res.data)
       }
-    } catch(err: any) {
-      setError({
-        message: err.response.data.message
-      })
-      console.log(err.response.data.message)
+    } catch(validationError) {
+        console.log(validationError)
     }
   }
+
 
   return (
     <>
       <div className= { styles.form } >
         <h1>Create Account</h1>
-        <div>{error.message}</div>
         <form onSubmit={onSubmit}>
           <div className={ styles.input1 } >
             <label htmlFor="email">Email</label>
@@ -100,7 +94,7 @@ export default function Signup() {
             <input
               id="password"
               name="password"
-              type="text"
+              type="password"
               placeholder='password'
               onChange={handleChange} />
           </div>
@@ -109,7 +103,7 @@ export default function Signup() {
             <input
               id="cPassword"
               name="cPassword"
-              type="text"
+              type="password"
               placeholder='cpassword'
               onChange={handleChange} />
           </div>
@@ -117,15 +111,6 @@ export default function Signup() {
             <button type='submit' >Signup</button>
           </div>
         </form>
-        <div className={styles.oauth}>
-          <h3>OR</h3>
-          <div className={styles.btn1}>
-            <button type='submit' >Google</button>
-          </div>
-          <div className={styles.btn1}>
-            <button type='submit' >42</button>
-          </div>
-        </div>
       </div>
     </>
   )
