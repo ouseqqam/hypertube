@@ -6,7 +6,6 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { JwtService } from '@nestjs/jwt'
 import { ConfigService } from '@nestjs/config'
 
-
 @Injectable()
 export class AuthService {
     constructor(private prisma: PrismaService, private jwt: JwtService, private config: ConfigService) {}
@@ -40,24 +39,67 @@ export class AuthService {
                 username: dto.username,
             }
         })
+
         if (!user)
             throw new ForbiddenException('Credentials incorrect')
 
         const pass = await argon.verify(user.password, dto.password)
-        if (!pass)
-        throw new ForbiddenException('Credentials incorrect')
 
-        return this.signToken(user.username, user.id)
+        if (!pass)
+            throw new ForbiddenException('Credentials incorrect')
+
+        const token  =  await this.signToken(user.username, user.id)
+
+        return token
     }
 
-    async signToken(username: string, id: number): Promise<string> {
+    async signToken(username: string, id: number) {
         const payload = {
             sub: id,
             username
         }
-        return this.jwt.signAsync(payload, {
+
+        const token = await this.jwt.signAsync(payload, {
             expiresIn: '15min',
             secret: this.config.get('JWT_SECRET')
         })
+
+        return { token }
+    }
+    
+    async handleRedirect(profile) {
+        try {
+            const { email, firstName, lastName } = profile
+
+            let user = await this.prisma.user.findFirst({
+                where: {
+                    username: email,
+                }
+            })
+
+            if (!user) {
+                user = await this.prisma.user.create({
+                   data: {
+                       email: email,
+                       username: `${firstName[0].toLowerCase()}${lastName.toLowerCase()}`,
+                       firstName: firstName,
+                       lastName: lastName,
+                       provider: 'google'
+                   }
+                })
+            }
+
+            const token  =  await this.signToken(user.username, user.id)
+
+            return token
+
+        } catch (err) {
+            if (err instanceof PrismaClientKnownRequestError) {
+                if (err.code === 'P2002') {
+                    throw new ForbiddenException(err.meta.target[0] + " exist")
+                }
+            }
+            throw err
+        }
     }
 }

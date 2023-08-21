@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
-}
+} 
 
 datasource db {
   provider = "postgresql"
@@ -16,6 +16,7 @@ model User {
   username String @unique
   firstName String
   lastName String
-  password String
+  password String?
+  provider String?
   createdAt DateTime @default(now())
 }
